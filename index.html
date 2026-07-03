@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<title>БКС Экспресс — персональная лента</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  html,body{margin:0;padding:0;}
+  *{-webkit-tap-highlight-color:transparent;box-sizing:border-box;}
+  [data-noscroll]::-webkit-scrollbar{display:none;}
+  @keyframes shimmer{0%{background-position:-320px 0;}100%{background-position:320px 0;}}
+  @keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+  @keyframes artInRight{from{transform:translateX(46px);opacity:.2;}to{transform:translateX(0);opacity:1;}}
+  @keyframes artInLeft{from{transform:translateX(-46px);opacity:.2;}to{transform:translateX(0);opacity:1;}}
+  @media (max-width:520px), (hover:none) and (pointer:coarse){
+    .dc-stage{padding:0!important;background:#F3F3F5!important;}
+    .dc-phone{width:100%!important;height:100vh!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important;}
+    .dc-statusbar{display:none!important;}
+    .dc-header{top:0!important;}
+  }
+</style>
+</helmet>
+
+<div class="dc-stage" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#E4E4EA;padding:24px;font-family:-apple-system,'SB Sans Display','Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div class="dc-phone" style="position:relative;width:390px;height:844px;background:#F3F3F5;border-radius:46px;overflow:hidden;box-shadow:0 40px 90px rgba(20,25,45,.35),0 0 0 12px #0b0d14,0 0 0 13px #23252e;">
+
+    <div data-noscroll style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;">
+
+      <!-- status bar -->
+      <div class="dc-statusbar" style="position:sticky;top:0;z-index:40;height:50px;background:#fff;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px;">
+        <span style="font-size:16px;font-weight:700;color:#101114;letter-spacing:.2px;">9:41</span>
+        <span style="display:flex;align-items:center;gap:7px;color:#101114;">
+          <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="7" width="3" height="5" rx="1" fill="currentColor"></rect><rect x="5" y="4" width="3" height="8" rx="1" fill="currentColor"></rect><rect x="10" y="2" width="3" height="10" rx="1" fill="currentColor"></rect><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"></rect></svg>
+          <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.5c2.3 0 4.4.9 6 2.4l-1.3 1.4A6.7 6.7 0 0 0 8.5 4.4 6.7 6.7 0 0 0 3.8 6.3L2.5 4.9A8.6 8.6 0 0 1 8.5 2.5Zm0 3.6c1.3 0 2.5.5 3.4 1.4l-1.4 1.4a3 3 0 0 0-4 0L5.1 7.5A4.8 4.8 0 0 1 8.5 6.1Zm0 3.4 1.4 1.5-1.4 1.4-1.4-1.4Z" fill="currentColor"></path></svg>
+          <span style="display:inline-flex;align-items:center;"><span style="width:22px;height:11px;border:1px solid rgba(16,17,20,.4);border-radius:3px;padding:1px;display:inline-flex;"><span style="flex:1;background:#101114;border-radius:1px;"></span></span><span style="width:1.5px;height:4px;background:rgba(16,17,20,.4);border-radius:0 1px 1px 0;margin-left:1px;"></span></span>
+        </span>
+      </div>
+
+      <!-- sticky header -->
+      <div class="dc-header" style="position:sticky;top:50px;z-index:30;background:#fff;padding:6px 12px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 0 rgba(16,17,20,.06);">
+        <div style="width:34px;height:34px;border-radius:50%;flex:none;background:conic-gradient(from 210deg,#3ec1c9,#2f6df0,#7b3ff2,#3ec1c9);display:flex;align-items:center;justify-content:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#fff;opacity:.9;"></div>
+        </div>
+        <button onClick="{{ openSearch }}" style="flex:1;height:38px;border:none;background:#EFEFF2;border-radius:11px;display:flex;align-items:center;gap:8px;padding:0 12px;cursor:pointer;transition:background .18s;" style-active="background:#E4E4E9;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9A9DA6" stroke-width="2"></circle><path d="m20 20-3.2-3.2" stroke="#9A9DA6" stroke-width="2" stroke-linecap="round"></path></svg>
+          <span style="color:#9A9DA6;font-size:15px;">Искать SBER</span>
+        </button>
+        <button style="position:relative;width:38px;height:38px;flex:none;border:none;background:#EFEFF2;border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.92)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#3A3D45" stroke-width="2"></circle><path d="M5.5 19c.7-3.2 3.3-5 6.5-5s5.8 1.8 6.5 5" stroke="#3A3D45" stroke-width="2" stroke-linecap="round"></path></svg>
+          <span style="position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;background:#E23A3A;border:2px solid #fff;border-radius:9px;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px;">1</span>
+        </button>
+        <button style="width:38px;height:38px;flex:none;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:opacity .15s;" style-active="opacity:.5">
+          <span style="width:20px;height:2px;background:#2F6DF0;border-radius:2px;"></span>
+          <span style="width:20px;height:2px;background:#2F6DF0;border-radius:2px;"></span>
+          <span style="width:20px;height:2px;background:#2F6DF0;border-radius:2px;"></span>
+        </button>
+      </div>
+
+      <!-- HERO -->
+      <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,#16264C 0%,#1E3564 52%,#274a86 100%);padding:20px 16px 14px;border-radius:0 0 22px 22px;">
+        <div style="position:absolute;top:-30px;right:-40px;width:230px;height:210px;pointer-events:none;">
+          <div style="position:absolute;top:40px;right:50px;width:170px;height:56px;background:linear-gradient(90deg,#6FBF3B,#B6E14A);transform:rotate(-38deg);border-radius:6px;opacity:.95;"></div>
+          <div style="position:absolute;top:96px;right:50px;width:170px;height:56px;background:linear-gradient(90deg,#2E7DE0,#57C6E8);transform:rotate(38deg);border-radius:6px;opacity:.95;"></div>
+        </div>
+        <div style="position:relative;display:flex;align-items:center;gap:12px;">
+          <div style="width:44px;height:44px;border-radius:13px;flex:none;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 15c5-1 8-4 10-11-1 8-4 11-9 12M9 8c3.5 3 6 3 9 1" stroke="#B6E14A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <div style="min-width:0;">
+            <div style="color:#fff;font-size:22px;font-weight:800;letter-spacing:-.3px;">Персональная лента</div>
+            <div style="color:rgba(255,255,255,.68);font-size:13.5px;margin-top:2px;display:flex;align-items:center;gap:5px;">Выберите профиль
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,.6)" stroke-width="1.6"></circle><path d="M12 11v5M12 8.2v.1" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div data-noscroll style="position:relative;display:flex;gap:8px;margin-top:16px;overflow-x:auto;padding-bottom:2px;">
+          <button style="flex:none;height:36px;padding:0 16px;border:none;border-radius:12px;background:rgba(255,255,255,.14);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.94)">Свой</button>
+          <button style="flex:none;width:36px;height:36px;border:none;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.8"></circle><path d="M12 3v2.5M12 18.5V21M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M4.2 16.5l2.2-1.3M17.6 8.8l2.2-1.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </button>
+          <sc-for list="{{ profiles }}" as="tab" hint-placeholder-count="3">
+            <button onClick="{{ tab.onTap }}" style="flex:none;height:36px;padding:0 18px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s,background .2s;{{ tab.btnStyle }}" style-active="transform:scale(.94)">{{ tab.name }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- SMART SEARCH PROMPT CARD -->
+      <div onClick="{{ openSearch }}" style="margin:14px 12px 0;background:#fff;border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 1px 2px rgba(16,17,20,.05);transition:transform .16s;" style-active="transform:scale(.985)">
+        <div style="width:46px;height:46px;flex:none;border-radius:14px;background:linear-gradient(135deg,#6E5BEA,#8B7CF0);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(110,91,234,.32);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 3.9L17.5 8l-3.9 1.6L12 13.5 10.4 9.6 6.5 8l3.9-1.4L12 3Z" fill="#fff"></path><circle cx="18" cy="17" r="2.4" fill="#fff"></circle></svg>
+        </div>
+        <div style="min-width:0;flex:1;">
+          <div style="font-size:15.5px;font-weight:700;color:#101114;">Спросите что угодно про рынок</div>
+          <div style="font-size:13px;color:#9A9DA6;margin-top:3px;">Умный поиск по всей базе Экспресса</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="#C4C6CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+
+      <!-- NEWS TOP (image cards) -->
+      <sc-for list="{{ newsTop }}" as="item" hint-placeholder-count="2">
+        <div style="margin:14px 12px 0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(16,17,20,.05);">
+          <div onClick="{{ item.onOpen }}" style="position:relative;height:206px;cursor:pointer;background:{{ item.cover }};">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,24,.34) 0%,rgba(8,12,24,0) 34%,rgba(8,12,24,.05) 55%,rgba(8,12,24,.82) 100%);"></div>
+            <div style="position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.92);font-size:12px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.4);">
+              <span>{{ item.tag }}</span><span style="opacity:.6;">/</span><span style="font-weight:500;opacity:.9;">{{ item.date }}</span>
+            </div>
+            <div style="position:absolute;top:12px;right:12px;display:flex;gap:8px;">
+              <button onClick="{{ item.onSave }}" style="width:34px;height:34px;border:none;border-radius:11px;background:rgba(16,20,32,.42);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.86)">
+                <sc-if value="{{ item.saved }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4Z" fill="#fff"></path></svg></sc-if>
+                <sc-if value="{{ item.notSaved }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16l-6-4-6 4V4Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path></svg></sc-if>
+              </button>
+              <button style="width:34px;height:34px;border:none;border-radius:11px;background:rgba(16,20,32,.42);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.86)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M8.5 12.5 15 9M8.5 12.5 15 16M8.5 12.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="17.5" cy="7.5" r="2.5" stroke="#fff" stroke-width="1.8"></circle><circle cx="17.5" cy="17.5" r="2.5" stroke="#fff" stroke-width="1.8"></circle></svg>
+              </button>
+            </div>
+            <div style="position:absolute;left:16px;right:16px;bottom:14px;">
+              <div style="color:#fff;font-size:20px;font-weight:800;line-height:1.18;letter-spacing:-.3px;text-shadow:0 1px 10px rgba(0,0,0,.35);">{{ item.title }}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;color:rgba(255,255,255,.86);font-size:13px;">
+                <span>{{ item.author }}</span><span style="display:flex;align-items:center;gap:5px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,.85)" stroke-width="1.8"></circle><path d="M12 7.5V12l3 2" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round"></path></svg>{{ item.read }}</span>
+              </div>
+            </div>
+          </div>
+          <div data-noscroll style="display:flex;gap:8px;padding:12px 12px 4px;overflow-x:auto;">
+            <sc-for list="{{ item.chips }}" as="chip" hint-placeholder-count="2">
+              <div style="flex:none;display:flex;align-items:center;gap:8px;background:#F5F5F7;border-radius:12px;padding:7px 12px 7px 8px;">
+                <span style="width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;background:{{ chip.logoBg }};">{{ chip.logo }}</span>
+                <span style="display:flex;flex-direction:column;line-height:1.15;">
+                  <span style="font-size:13px;font-weight:700;color:#101114;">{{ chip.name }}</span>
+                  <span style="font-size:11px;color:#8A8D96;">{{ chip.price }}
+                    <sc-if value="{{ chip.pos }}" hint-placeholder-val="{{ true }}"><span style="color:#12A45B;font-weight:700;">{{ chip.chg }}</span></sc-if>
+                    <sc-if value="{{ chip.neg }}" hint-placeholder-val="{{ false }}"><span style="color:#E23A3A;font-weight:700;">{{ chip.chg }}</span></sc-if>
+                  </span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding:8px 16px 0;">
+            <sc-if value="{{ item.expanded }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;font-size:15px;line-height:1.5;color:#3A3D45;">{{ item.body }}</p>
+            </sc-if>
+            <sc-if value="{{ item.collapsed }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:15px;line-height:1.5;color:#3A3D45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;">{{ item.teaser }}</p>
+            </sc-if>
+          </div>
+          <sc-if value="{{ item.locked }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ item.onModal }}" style="margin:14px 16px 16px;width:calc(100% - 32px);height:46px;border:none;border-radius:13px;background:#ECEBFA;color:#5B4CD6;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:transform .15s,background .2s;" style-active="transform:scale(.98);background:#E1DFF7">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2.4" stroke="#5B4CD6" stroke-width="1.9"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#5B4CD6" stroke-width="1.9" stroke-linecap="round"></path></svg>Читать статью
+            </button>
+          </sc-if>
+          <sc-if value="{{ item.opensModal }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ item.onModal }}" style="margin:14px 16px 16px;width:calc(100% - 32px);height:46px;border:none;border-radius:13px;background:#ECEBFA;color:#5B4CD6;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s,background .2s;" style-active="transform:scale(.98);background:#E1DFF7">Читать статью</button>
+          </sc-if>
+          <sc-if value="{{ item.expandable }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ item.onOpen }}" style="margin:14px 16px 16px;width:calc(100% - 32px);height:46px;border:none;border-radius:13px;background:#ECEBFA;color:#5B4CD6;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s,background .2s;" style-active="transform:scale(.98);background:#E1DFF7">
+              <sc-if value="{{ item.expanded }}" hint-placeholder-val="{{ false }}">Свернуть</sc-if>
+              <sc-if value="{{ item.collapsed }}" hint-placeholder-val="{{ true }}">Читать статью</sc-if>
+            </button>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <!-- PROFIT CAROUSEL -->
+      <div style="margin-top:22px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 12px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:19px;font-weight:800;color:#101114;letter-spacing:-.3px;">Из Profit</span>
+            <span style="font-size:12px;font-weight:700;color:#6E5BEA;background:#ECEBFA;border-radius:8px;padding:3px 8px;">соцсеть</span>
+          </div>
+          <span style="font-size:13px;color:#9A9DA6;display:flex;align-items:center;gap:4px;">Листайте вбок
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="#C4C6CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </span>
+        </div>
+        <div data-noscroll style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory;">
+          <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+            <div style="flex:none;width:300px;scroll-snap-align:start;background:#fff;border-radius:18px;padding:16px;box-shadow:0 1px 2px rgba(16,17,20,.05);display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:40px;height:40px;border-radius:50%;flex:none;background:{{ post.avatar }};"></span>
+                <span style="font-size:15px;font-weight:700;color:#101114;flex:1;">{{ post.nick }}</span>
+                <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.7" fill="#C4C6CD"></circle><circle cx="12" cy="12" r="1.7" fill="#C4C6CD"></circle><circle cx="19" cy="12" r="1.7" fill="#C4C6CD"></circle></svg>
+              </div>
+              <p style="margin:13px 0 0;font-size:14.5px;line-height:1.5;color:#101114;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;flex:1;">{{ post.text }}</p>
+              <sc-if value="{{ post.hasTag }}" hint-placeholder-val="{{ false }}">
+                <span style="align-self:flex-start;margin-top:12px;font-size:13px;color:#5A5E68;border:1px solid #E4E4E9;border-radius:11px;padding:5px 12px;">{{ post.tag }}</span>
+              </sc-if>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:13px;border-top:1px solid #F0F0F3;">
+                <span style="font-size:13px;color:#9A9DA6;">{{ post.time }}</span>
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <span style="display:flex;align-items:center;gap:5px;color:#9A9DA6;font-size:14px;font-weight:600;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.8-5A7.5 7.5 0 1 1 20 11.5Z" stroke="#B7BAC2" stroke-width="1.8" stroke-linejoin="round"></path></svg>{{ post.comments }}
+                  </span>
+                  <button onClick="{{ post.onLike }}" style="display:flex;align-items:center;gap:5px;border:none;background:none;cursor:pointer;font-size:14px;font-weight:600;padding:0;transition:transform .15s;" style-active="transform:scale(.85)">
+                    <sc-if value="{{ post.liked }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="#F2385A"><path d="M12 20s-7-4.6-7-9.4A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.6C19 15.4 12 20 12 20Z"></path></svg></sc-if>
+                    <sc-if value="{{ post.notLiked }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.6-7-9.4A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.6C19 15.4 12 20 12 20Z" stroke="#B7BAC2" stroke-width="1.8" stroke-linejoin="round"></path></svg></sc-if>
+                    <span style="color:{{ post.countColor }};">{{ post.likeCount }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- NEWS BOTTOM (compact + list) -->
+      <sc-for list="{{ newsBottom }}" as="item" hint-placeholder-count="2">
+        <sc-if value="{{ item.isCompact }}" hint-placeholder-val="{{ true }}">
+          <div style="margin:14px 12px 0;background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(16,17,20,.05);">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#8A8D96;">
+              <span style="color:#5B4CD6;">{{ item.tag }}</span><span style="opacity:.5;">/</span><span>{{ item.date }}</span>
+              <button onClick="{{ item.onSave }}" style="margin-left:auto;border:none;background:none;cursor:pointer;padding:0;display:flex;transition:transform .15s;" style-active="transform:scale(.85)">
+                <sc-if value="{{ item.saved }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4Z" fill="#5B4CD6"></path></svg></sc-if>
+                <sc-if value="{{ item.notSaved }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16l-6-4-6 4V4Z" stroke="#8A8D96" stroke-width="1.8" stroke-linejoin="round"></path></svg></sc-if>
+              </button>
+            </div>
+            <div onClick="{{ item.onPrimary }}" style="cursor:pointer;font-size:18px;font-weight:800;line-height:1.22;color:#101114;letter-spacing:-.2px;margin-top:10px;">{{ item.title }}</div>
+            <div style="font-size:13px;color:#8A8D96;margin-top:8px;">{{ item.author }}</div>
+            <sc-if value="{{ item.expanded }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:12px 0 0;font-size:15px;line-height:1.5;color:#3A3D45;">{{ item.body }}</p>
+            </sc-if>
+            <sc-if value="{{ item.collapsed }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:12px 0 0;font-size:15px;line-height:1.5;color:#3A3D45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ item.teaser }}</p>
+            </sc-if>
+            <button onClick="{{ item.onPrimary }}" style="margin-top:14px;width:100%;height:46px;border:none;border-radius:13px;background:#ECEBFA;color:#5B4CD6;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s,background .2s;" style-active="transform:scale(.98);background:#E1DFF7">
+              <sc-if value="{{ item.expanded }}" hint-placeholder-val="{{ false }}">Свернуть</sc-if>
+              <sc-if value="{{ item.collapsed }}" hint-placeholder-val="{{ true }}">Читать статью</sc-if>
+            </button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ item.isList }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:14px 12px 0;background:#fff;border-radius:16px;padding:16px 16px 6px;box-shadow:0 1px 2px rgba(16,17,20,.05);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-size:17px;font-weight:800;color:#101114;letter-spacing:-.2px;">{{ item.title }}</span>
+              <span style="font-size:12px;font-weight:700;color:#12A45B;background:#E7F6EE;border-radius:8px;padding:3px 8px;">live</span>
+            </div>
+            <sc-for list="{{ item.rows }}" as="row" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #F0F0F3;cursor:pointer;transition:opacity .15s;" style-active="opacity:.55">
+                <div style="min-width:0;flex:1;">
+                  <div style="font-size:14.5px;font-weight:600;color:#101114;line-height:1.3;">{{ row.title }}</div>
+                  <div style="font-size:12.5px;color:#9A9DA6;margin-top:3px;">{{ row.meta }}</div>
+                </div>
+                <sc-if value="{{ row.up }}" hint-placeholder-val="{{ true }}"><span style="flex:none;font-size:12px;font-weight:700;color:#12A45B;background:#E7F6EE;border-radius:8px;padding:3px 7px;">▲</span></sc-if>
+                <sc-if value="{{ row.down }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:12px;font-weight:700;color:#E23A3A;background:#FCEBEB;border-radius:8px;padding:3px 7px;">▼</span></sc-if>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="#C4C6CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </sc-for>
+
+      <!-- skeletons -->
+      <div style="margin:14px 12px 0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(16,17,20,.05);">
+        <div style="height:170px;background:linear-gradient(90deg,#EFEFF2 25%,#F7F7F9 50%,#EFEFF2 75%);background-size:320px 100%;animation:shimmer 1.4s infinite;"></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:11px;">
+          <div style="height:13px;width:38%;border-radius:7px;background:linear-gradient(90deg,#EFEFF2 25%,#F7F7F9 50%,#EFEFF2 75%);background-size:320px 100%;animation:shimmer 1.4s infinite;"></div>
+          <div style="height:13px;width:85%;border-radius:7px;background:linear-gradient(90deg,#EFEFF2 25%,#F7F7F9 50%,#EFEFF2 75%);background-size:320px 100%;animation:shimmer 1.4s infinite;"></div>
+          <div style="height:13px;width:70%;border-radius:7px;background:linear-gradient(90deg,#EFEFF2 25%,#F7F7F9 50%,#EFEFF2 75%);background-size:320px 100%;animation:shimmer 1.4s infinite;"></div>
+        </div>
+      </div>
+
+      <div style="height:40px;"></div>
+    </div>
+
+    <!-- SEARCH BOTTOM SHEET -->
+    <div onClick="{{ closeSearch }}" style="position:absolute;inset:0;z-index:60;background:rgba(8,10,20,.5);transition:opacity .28s;opacity:{{ backdropOpacity }};pointer-events:{{ backdropPointer }};"></div>
+    <div ref="{{ sheetRef }}" style="position:absolute;left:0;right:0;bottom:0;z-index:61;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -10px 40px rgba(8,10,20,.2);transition:transform .3s cubic-bezier(.22,1,.36,1);max-height:82%;display:flex;flex-direction:column;transform:{{ sheetTransform }};">
+      <div ref="{{ handleRef }}" style="padding:12px 0 6px;cursor:grab;flex:none;touch-action:none;">
+        <div style="width:40px;height:5px;border-radius:3px;background:#DADADF;margin:0 auto;"></div>
+      </div>
+      <div style="padding:6px 20px 4px;display:flex;align-items:center;gap:10px;flex:none;">
+        <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#6E5BEA,#8B7CF0);display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 3.9L17.5 8l-3.9 1.6L12 13.5 10.4 9.6 6.5 8l3.9-1.4L12 3Z" fill="#fff"></path><circle cx="18" cy="17" r="2.4" fill="#fff"></circle></svg>
+        </div>
+        <div style="flex:1;"><div style="font-size:16px;font-weight:800;color:#101114;">Умный поиск</div><div style="font-size:12.5px;color:#9A9DA6;">Ответы по всей базе Экспресса</div></div>
+        <button onClick="{{ closeSearch }}" style="width:32px;height:32px;border:none;border-radius:50%;background:#F0F0F3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="#8A8D96" stroke-width="2" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+
+      <div data-noscroll style="overflow-y:auto;padding:14px 20px 6px;flex:1;">
+        <sc-if value="{{ showAnswer }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#F6F5FE;border:1px solid #ECEBFA;border-radius:16px;padding:15px;margin-bottom:16px;">
+            <div style="font-size:12px;font-weight:700;color:#6E5BEA;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Ответ Экспресса</div>
+            <div style="font-size:15px;line-height:1.55;color:#22242B;">{{ typed }}<sc-if value="{{ answering }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block;width:2px;height:15px;background:#6E5BEA;margin-left:2px;vertical-align:-2px;animation:blink 1s step-end infinite;"></span></sc-if></div>
+            <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;padding-top:13px;border-top:1px solid #ECEBFA;">
+                <div style="font-size:12.5px;font-weight:700;color:#8A8D96;margin-bottom:10px;">Источники из ленты</div>
+                <sc-for list="{{ sources }}" as="src" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;padding:9px 0;cursor:pointer;transition:opacity .15s;" style-active="opacity:.5">
+                    <span style="width:34px;height:34px;flex:none;border-radius:10px;background:{{ src.cover }};"></span>
+                    <div style="min-width:0;flex:1;"><div style="font-size:11px;font-weight:700;color:#6E5BEA;">{{ src.tag }}</div><div style="font-size:14px;font-weight:600;color:#101114;line-height:1.25;margin-top:2px;">{{ src.title }}</div></div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="#C4C6CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <div style="font-size:13px;font-weight:700;color:#8A8D96;margin-bottom:10px;">Примеры вопросов</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <sc-for list="{{ suggestions }}" as="chip" hint-placeholder-count="4">
+            <button onClick="{{ chip.onTap }}" style="border:1px solid #E4E4E9;background:#fff;border-radius:14px;padding:9px 14px;font-size:13.5px;color:#22242B;cursor:pointer;text-align:left;transition:background .16s,transform .15s;" style-active="transform:scale(.96);background:#F5F5F7">{{ chip.text }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:none;padding:12px 16px 26px;border-top:1px solid #F0F0F3;display:flex;align-items:flex-end;gap:10px;">
+        <div style="flex:1;background:#F0F0F3;border-radius:16px;padding:11px 14px;display:flex;align-items:center;">
+          <input value="{{ query }}" onInput="{{ onQuery }}" onKeyDown="{{ onKey }}" placeholder="Спросите что угодно про рынок…" style="border:none;background:none;outline:none;width:100%;font-size:15px;color:#101114;font-family:inherit;"/>
+        </div>
+        <button onClick="{{ submit }}" style="width:46px;height:46px;flex:none;border:none;border-radius:15px;background:linear-gradient(135deg,#6E5BEA,#8B7CF0);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 16px rgba(110,91,234,.34);transition:transform .15s;" style-active="transform:scale(.9)">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 12h13m0 0-5-5m5 5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- PAYWALL OVERLAY (over article modal) -->
+    <div ref="{{ paywallDimRef }}" style="position:absolute;inset:0;z-index:90;background:rgba(8,10,20,.5);transition:opacity .28s;opacity:{{ paywallDimOpacity }};pointer-events:{{ paywallPointer }};touch-action:pan-y;"></div>
+    <div ref="{{ paywallRef }}" style="position:absolute;left:0;right:0;bottom:0;z-index:91;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -10px 40px rgba(8,10,20,.2);transition:transform .34s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;transform:{{ paywallTransform }};">
+      <div ref="{{ paywallHandleRef }}" style="padding:12px 0 2px;cursor:grab;flex:none;touch-action:none;">
+        <div style="width:40px;height:5px;border-radius:3px;background:#DADADF;margin:0 auto;"></div>
+      </div>
+      <div style="padding:14px 24px 26px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:23px;font-weight:800;line-height:1.16;color:#101114;letter-spacing:-.4px;">Дочитайте статью бесплатно</div>
+            <div style="font-size:14.5px;line-height:1.4;color:#9A9DA6;margin-top:10px;">Войдите или создайте профиль — всего за 3 шага.</div>
+          </div>
+          <button onClick="{{ closePaywall }}" style="width:36px;height:36px;flex:none;border:none;border-radius:50%;background:#F0F0F3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="#6E5BEA" stroke-width="2" stroke-linecap="round"></path></svg>
+          </button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:22px;">
+          <span style="font-size:13px;font-weight:800;color:#5B4CD6;flex:none;">40% прочитано</span>
+          <span style="flex:1;height:8px;border-radius:5px;background:#ECEBFA;overflow:hidden;"><span style="display:block;width:40%;height:100%;border-radius:5px;background:linear-gradient(90deg,#6E5BEA,#8B7CF0);"></span></span>
+          <span style="font-size:13px;font-weight:700;color:#C4C6CD;flex:none;">100%</span>
+        </div>
+
+        <div style="font-size:13px;font-weight:800;color:#5B4CD6;margin-top:24px;">С профилем вам станет доступно:</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+          <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;border:1px solid #E9E9EE;border-radius:14px;padding:14px 16px;">
+              <span style="width:26px;height:26px;flex:none;border-radius:50%;background:#12A45B;display:flex;align-items:center;justify-content:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.2 4.5L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span style="font-size:15.5px;font-weight:500;color:#101114;line-height:1.3;">{{ perk }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <button style="margin-top:26px;width:100%;height:56px;border:none;border-radius:16px;background:#6E5BEA;color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(110,91,234,.32);transition:transform .15s,background .2s;" style-active="transform:scale(.985);background:#5D4BDD">Создать профиль</button>
+        <button onClick="{{ closePaywall }}" style="margin-top:10px;width:100%;height:56px;border:none;border-radius:16px;background:#F3F2FC;color:#6E5BEA;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s,background .2s;" style-active="transform:scale(.985);background:#EAE8FA">Войти</button>
+      </div>
+    </div>
+
+    <!-- ARTICLE MODAL -->
+    <div onClick="{{ closeArticle }}" style="position:absolute;inset:0;z-index:80;background:rgba(8,10,20,.6);transition:opacity .28s;opacity:{{ articleBackdropOpacity }};pointer-events:{{ articleBackdropPointer }};"></div>
+    <div ref="{{ articleRef }}" style="position:absolute;left:0;right:0;top:52px;bottom:0;z-index:81;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -12px 44px rgba(8,10,20,.28);transition:transform .34s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;overflow:hidden;transform:{{ articleTransform }};">
+      <!-- header -->
+      <div ref="{{ articleHandleRef }}" style="flex:none;padding:16px 18px 12px;display:flex;align-items:center;gap:12px;cursor:grab;touch-action:none;">
+        <button style="width:46px;height:46px;flex:none;border:1px solid #E9E9EE;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="#3A3D45" stroke-width="2" stroke-linecap="round"></path></svg>
+        </button>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 3.5 6 6.5m0 0 3 3m-3-3h7.5" stroke="#6E5BEA" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 11.2V8.7a1.15 1.15 0 0 1 2.3 0v4.1l.7-.15a2 2 0 0 1 1.6.5l2.1 1.9c.5.45.6 1.15.3 1.7l-1.5 2.6a1.6 1.6 0 0 1-1.4.8h-3.5a2 2 0 0 1-1.5-.7l-2.4-2.9a1.15 1.15 0 0 1 1.6-1.6l1.3 1.1" stroke="#6E5BEA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span style="font-size:13px;font-weight:600;line-height:1.3;color:#6E5BEA;display:flex;flex-direction:column;"><span style="white-space:nowrap;">Свайпайте статьи вправо/влево</span><span style="white-space:nowrap;">для быстрого перемещения.</span></span>
+        </div>
+        <button onClick="{{ closeArticle }}" style="width:46px;height:46px;flex:none;border:1px solid #E9E9EE;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="#101114" stroke-width="2" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+
+      <!-- scroll body -->
+      <div ref="{{ articleScrollRef }}" data-noscroll style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 18px 32px;">
+        <div ref="{{ articleTrackRef }}">
+        <div data-noscroll style="display:flex;gap:10px;overflow-x:auto;padding-bottom:2px;">
+          <sc-for list="{{ articleChips }}" as="chip" hint-placeholder-count="2">
+            <div style="flex:none;display:flex;align-items:center;gap:10px;background:#F5F5F7;border-radius:14px;padding:11px 16px 11px 11px;">
+              <span style="width:36px;height:36px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;background:{{ chip.logoBg }};">{{ chip.logo }}</span>
+              <span style="display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:16px;font-weight:600;color:#101114;">{{ chip.name }}</span>
+                <span style="font-size:13.5px;color:#8A8D96;white-space:nowrap;">{{ chip.price }}
+                  <sc-if value="{{ chip.pos }}" hint-placeholder-val="{{ true }}"><span style="color:#12A45B;font-weight:600;">{{ chip.chg }}</span></sc-if>
+                  <sc-if value="{{ chip.neg }}" hint-placeholder-val="{{ false }}"><span style="color:#E23A3A;font-weight:600;">{{ chip.chg }}</span></sc-if>
+                </span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+
+        <h1 style="margin:22px 0 0;font-size:30px;font-weight:800;line-height:1.14;letter-spacing:-.6px;color:#101114;">{{ articleTitle }}</h1>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:26px;">
+          <span style="font-size:16px;color:#B0B2BA;">{{ article.dateline }}</span>
+          <button style="width:56px;height:56px;flex:none;border:1px solid #E9E9EE;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;" style-active="transform:scale(.9)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8.5 12.5 15 9M8.5 12.5 15 16M8.5 12.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" stroke="#3A3D45" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="17.5" cy="7.5" r="2.5" stroke="#3A3D45" stroke-width="1.9"></circle><circle cx="17.5" cy="17.5" r="2.5" stroke="#3A3D45" stroke-width="1.9"></circle></svg>
+          </button>
+        </div>
+
+        <div style="margin-top:20px;background:#F5F5F7;border-radius:18px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:21px;font-weight:800;color:#101114;letter-spacing:-.3px;">Ключевые моменты</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B7B2E8" stroke-width="1.8"></circle><path d="M12 11v5.5M12 7.6v.1" stroke="#8B84D9" stroke-width="2" stroke-linecap="round"></path></svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:18px;margin-top:16px;">
+            <sc-for list="{{ article.keyPoints }}" as="pt" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;">
+                <span style="width:8px;height:8px;flex:none;border-radius:50%;background:#6E5BEA;margin-top:9px;"></span>
+                <span style="font-size:18px;line-height:1.45;color:#101114;">{{ pt }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:22px;">
+          <sc-for list="{{ article.paras }}" as="para" hint-placeholder-count="3">
+            <p style="margin:0;font-size:17px;line-height:1.55;color:#22242B;">{{ para }}</p>
+          </sc-for>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    activeProfile: 'Базовый',
+    saved: {},
+    expanded: {},
+    likes: { p1:{l:false,c:12}, p2:{l:false,c:2}, p3:{l:true,c:87}, p4:{l:false,c:34}, p5:{l:false,c:9} },
+    searchOpen: false, query: '', typed: '', answering: false, answered: false,
+    articleOpen: false,
+    articleIndex: 0,
+  };
+
+  sheetRef = React.createRef();
+  handleRef = React.createRef();
+  paywallRef = React.createRef();
+  paywallHandleRef = React.createRef();
+  paywallDimRef = React.createRef();
+  articleRef = React.createRef();
+  articleHandleRef = React.createRef();
+  articleScrollRef = React.createRef();
+  articleTrackRef = React.createRef();
+
+  articles = [
+    {
+      title: 'Рост промпроизводства в РФ замедляется',
+      dateline: '24 мая, 18:25 / Читать 5 мин',
+      keyPoints: [
+        'В I квартале 2025 г. рост промпроизводства в РФ замедлился до 3,1% против 5,4% годом ранее.',
+        'Обрабатывающие отрасли остаются драйвером, тогда как добыча прибавила лишь 0,4%.',
+        'Аналитики ждут стабилизации к концу года по мере смягчения политики ЦБ.',
+      ],
+      paras: [
+        'В I квартале 2025 г. темпы роста промышленного производства в РФ заметно замедлились, пишет Коммерсантъ со ссылкой на данные Росстата. Обрабатывающие производства прибавили 3,1% год к году против 5,4% за аналогичный период прошлого года.',
+        'Добывающий сектор фактически остановился в росте: прибавка составила символические 0,4%. Экономисты связывают охлаждение с высокой ключевой ставкой и ослаблением внешнего спроса на сырьё.',
+        'Точками роста остаются машиностроение и предприятия ОПК — они компенсируют спад в металлургии и производстве стройматериалов. Консенсус аналитиков предполагает постепенную стабилизацию к концу года по мере смягчения денежно-кредитной политики.',
+      ],
+    },
+    {
+      title: 'Нефть: отскок закончился, что дальше',
+      locked: true,
+      dateline: '02 янв, 09:30 / Читать 4 мин',
+      keyPoints: [
+        'Brent не удержала $82 и вернулась в диапазон $76–80.',
+        'Спрос в Азии восстанавливается медленнее ожиданий, запасы в США растут.',
+        'Дисконт Urals сузился до $11 — плюс для российских экспортёров.',
+      ],
+      paras: [
+        'Brent не удержала отметку $82 и вернулась в привычный диапазон $76–80. Отскок начала года оказался коррекционным: спрос в Азии восстанавливается медленнее ожиданий, а запасы в США растут.',
+        'Аналитики расходятся в оценках: часть ждёт теста $75 при сохранении высоких ставок, другие видят потенциал к $88 на фоне продления сокращений ОПЕК+.',
+        'Для российских экспортёров ключевым остаётся дисконт Urals, который сузился до $11 и поддерживает валютную выручку сектора.',
+      ],
+    },
+    {
+      title: 'ОФЗ: доходности выросли на ожиданиях по ставке',
+      dateline: '02 янв, 11:10 / Читать 3 мин',
+      keyPoints: [
+        'Индекс RGBI снизился четвёртую сессию подряд.',
+        'На длинном конце кривой доходности превысили 15% годовых.',
+        'Управляющие советуют лестницу из выпусков 3–7 лет.',
+      ],
+      paras: [
+        'Индекс гособлигаций RGBI снизился четвёртую сессию подряд, потеряв около 1,8% за неделю. Рынок закладывает более длительный период жёсткой денежно-кредитной политики после последних комментариев ЦБ.',
+        'На длинном конце кривой доходности превысили 15% годовых — уровни, привлекательные для стратегий «купи и держи».',
+        'Управляющие рекомендуют лестницу из выпусков 3–7 лет и осторожность с флоатерами при развороте ставки.',
+      ],
+    },
+  ];
+
+  perkList = [
+    'Персональный контент в ленте',
+    'Соцсеть «Профит» для инвесторов',
+    'Актуальные торговые рекомендации',
+    'Теханализ от экспертов БКС',
+  ];
+
+  profileList = ['Базовый','Новичок','Трейдер'];
+
+  answerText = 'По совокупности материалов ленты аналитики умеренно позитивны по акциям Сбербанка. Банк сохраняет высокую достаточность капитала, а ожидаемая дивидендная доходность на горизонте 12 месяцев оценивается в 11–13%. Ключевой фактор — траектория ставки ЦБ: её снижение поддержит котировки, пауза сдержит рост. Консенсус-таргет остаётся выше текущих уровней.';
+
+  sources = [
+    { tag:'Аналитика', title:'Сбербанк: прогноз по дивидендам на 2025', cover:'linear-gradient(135deg,#1E3564,#2E7DE0)' },
+    { tag:'Российский рынок', title:'ЦБ РФ: сигналы по ключевой ставке', cover:'linear-gradient(135deg,#166b46,#3fbf7a)' },
+    { tag:'Стратегия', title:'Топ-5 дивидендных историй сезона', cover:'linear-gradient(135deg,#6E5BEA,#8B7CF0)' },
+  ];
+
+  chipSet = [
+    { logo:'美团', logoBg:'#FFD400', name:'Meituan', price:'179,9 HK$', chg:'+2,62%', pos:true },
+    { logo:'T', logoBg:'#2E7DE0', name:'Tencent', price:'385,4 HK$', chg:'+0,63%', pos:true },
+    { logo:'.C', logoBg:'#E23A3A', name:'RBC', price:'112,4 ₽', chg:'−0,84%', pos:false },
+  ];
+
+  newsData = [
+    { id:'n1', variant:'image', modal:true, articleIdx:0, tag:'Российский рынок', date:'01.01.2025 в 12:00',
+      title:'Рост промпроизводства в РФ замедляется', author:'Давид Дадиани', read:'Читать 5 мин',
+      cover:'linear-gradient(135deg,#3a4152 0%,#232833 55%,#4a5262 100%)',
+      teaser:'В I квартале 2025 г. темпы роста промышленного производства в РФ замедлились, пишет Коммерсантъ со ссылкой на данные Росстата за несколько лет, а также комментарии экспертов.',
+      body:'В I квартале 2025 г. темпы роста промышленного производства в РФ замедлились, пишет Коммерсантъ со ссылкой на данные Росстата. Обрабатывающие отрасли прибавили 3,1% против 5,4% годом ранее, добыча — символические 0,4%. Экономисты связывают охлаждение с высокой ключевой ставкой и ослаблением внешнего спроса. При этом машиностроение и ОПК остаются драйверами, компенсируя спад в металлургии. Консенсус ждёт стабилизации к концу года по мере смягчения ДКП.' },
+    { id:'n2', variant:'image', locked:true, modal:true, articleIdx:1, tag:'Нефть и газ', date:'02.01.2025 в 09:30',
+      title:'Нефть: отскок закончился, что дальше', author:'Мария Лебедева', read:'Читать 4 мин',
+      cover:'linear-gradient(135deg,#5a3a1a 0%,#2b2018 50%,#7a5a2a 100%)',
+      teaser:'Brent не удержала $82 и вернулась в диапазон. Аналитики расходятся в прогнозах: одни ждут теста $75, другие — новый импульс на фоне сокращений ОПЕК+ и геополитики.',
+      body:'Brent не удержала отметку $82 и вернулась в привычный диапазон $76–80. Отскок начала года оказался коррекционным: спрос в Азии восстанавливается медленнее ожиданий, а запасы в США растут. Аналитики расходятся — часть ждёт теста $75 при сохранении высоких ставок, другие видят потенциал к $88 на фоне продления сокращений ОПЕК+ и геополитической премии. Для российских экспортёров ключевым остаётся дисконт Urals, который сузился до $11.' },
+    { id:'n3', variant:'compact', modal:true, articleIdx:2, tag:'Облигации', date:'02.01.2025 в 11:10',
+      title:'ОФЗ: доходности выросли на ожиданиях по ставке', author:'Давид Дадиани',
+      teaser:'Индекс RGBI снизился четвёртую сессию подряд. Рынок закладывает более длительный период жёсткой политики; на длинном конце кривой доходности превысили 15%.',
+      body:'Индекс гособлигаций RGBI снизился четвёртую сессию подряд, потеряв около 1,8% за неделю. Рынок закладывает более длительный период жёсткой денежно-кредитной политики после последних комментариев ЦБ. На длинном конце кривой доходности превысили 15% годовых — уровни, привлекательные для стратегий «купи и держи». Управляющие рекомендуют лестницу из выпусков 3–7 лет и осторожность с флоатерами при развороте ставки.' },
+    { id:'n4', variant:'list', title:'Коротко о рынке',
+      rows:[
+        { title:'Сбербанк рекомендовал рекордные дивиденды', meta:'MOEX · SBER · 34,8 ₽ на акцию', up:true },
+        { title:'Газпром отложил решение по выплатам', meta:'MOEX · GAZP · совет директоров', up:false },
+        { title:'Юань закрепился ниже 12,6 ₽', meta:'FX · CNYRUB · −0,7% за день', up:false },
+      ] },
+  ];
+
+  profitData = [
+    { id:'p1', nick:'semrusmex', avatar:'linear-gradient(135deg,#555,#999)', time:'Сегодня в 07:38', comments:42,
+      text:'По данным опроса Института конфликтологии, 81% респондентов поддержали бы решение завершить спор по дивидендной политике эмитентов уже сейчас. За «полную реформу» выступают лишь 9% опрошенных.' },
+    { id:'p2', nick:'eaoleg', avatar:'linear-gradient(135deg,#3a4a6a,#7a88a8)', time:'Сегодня в 10:56', comments:22, tag:'Геополитика',
+      text:'Крупный институциональный игрок нарастил позицию в бумагах металлургов, — пресс-служба фонда. «Последнее обстоятельство говорит о том, что мы имеем дело не с разовой сделкой, а со стратегией…»' },
+    { id:'p3', nick:'trader_kot', avatar:'linear-gradient(135deg,#6E5BEA,#B6E14A)', time:'Сегодня в 09:12', comments:118, tag:'Идея',
+      text:'Держу лонг по $LKOH третью неделю. Дивдоходность 14%, байбэк объявлен, техника рисует флаг. Цель — обновление хая, стоп под уровнем поддержки. Не является ИИР 🙂' },
+    { id:'p4', nick:'anna.invest', avatar:'linear-gradient(135deg,#e28,#f7a)', time:'Вчера в 21:40', comments:57,
+      text:'Разобрала отчёт МТС за квартал: выручка +7%, но чистый долг снова подрос. Дивиденды под вопросом при текущей ставке. Пока в стороне, жду следующего гайденса.' },
+    { id:'p5', nick:'bond_hunter', avatar:'linear-gradient(135deg,#166b46,#3fbf7a)', time:'Вчера в 18:05', comments:31, tag:'Облигации',
+      text:'Собрал лестницу из ОФЗ 26238/26240 + два корпората рейтинга А. Средняя доходность к погашению 16,2%. Фиксирую ставку на 5 лет вперёд, пока дают.' },
+  ];
+
+  suggestionList = [
+    'Стоит ли покупать акции Сбербанка?',
+    'Что будет с ключевой ставкой?',
+    'Какие облигации дают лучшую доходность?',
+    'Прогноз по нефти Brent на квартал',
+  ];
+
+  componentDidMount() {
+    this.wireSheet(this.handleRef.current, this.sheetRef.current, () => this.state.searchOpen, this.closeSearch);
+    this.wireSheet(this.paywallHandleRef.current, this.paywallRef.current, () => this.isLockedView(), this.closeArticle);
+    this.wireSheet(this.articleHandleRef.current, this.articleRef.current, () => this.state.articleOpen, this.closeArticle);
+    this.wireArticleSwipe(this.articleRef.current, this.articleTrackRef.current);
+    this.wireArticleSwipe(this.paywallRef.current, this.articleTrackRef.current);
+    this.wireArticleSwipe(this.paywallDimRef.current, this.articleTrackRef.current);
+  }
+
+  isLockedView() { return this.state.articleOpen && !!this.articles[this.state.articleIndex].locked; }
+
+  wireArticleSwipe(area, track) {
+    if (!area || !track) return;
+    let sx = 0, sy = 0, dx = 0, dir = null, active = false;
+    const start = (x, y) => { if (!this.state.articleOpen) return; sx = x; sy = y; dx = 0; dir = null; active = true; track.style.transition = 'none'; };
+    const move = (x, y, e) => {
+      if (!active) return;
+      const mx = x - sx, my = y - sy;
+      if (dir === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) dir = Math.abs(mx) > Math.abs(my) ? 'h' : 'v';
+      if (dir === 'h') {
+        if (e && e.cancelable) e.preventDefault();
+        dx = mx;
+        track.style.transform = 'translateX(' + (dx * 0.55) + 'px)';
+        track.style.opacity = String(1 - Math.min(Math.abs(dx) / 500, 0.45));
+      }
+    };
+    const end = () => {
+      if (!active) return;
+      active = false;
+      track.style.transition = 'transform .2s ease, opacity .2s ease';
+      if (dir === 'h' && Math.abs(dx) > 60) this.swipeArticle(dx < 0 ? 1 : -1);
+      track.style.transform = '';
+      track.style.opacity = '';
+      dx = 0; dir = null;
+    };
+    area.addEventListener('touchstart', e => start(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    area.addEventListener('touchmove', e => move(e.touches[0].clientX, e.touches[0].clientY, e), { passive: false });
+    area.addEventListener('touchend', end);
+    area.addEventListener('mousedown', e => { start(e.clientX, e.clientY); const mm = ev => move(ev.clientX, ev.clientY, ev); const mu = () => { end(); window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); }; window.addEventListener('mousemove', mm); window.addEventListener('mouseup', mu); });
+  }
+
+  swipeArticle = (d) => {
+    const n = this.articles.length;
+    const i = (this.state.articleIndex + d + n) % n;
+    this.setState({ articleIndex: i }, () => {
+      const sc = this.articleScrollRef.current; if (sc) sc.scrollTop = 0;
+      const tr = this.articleTrackRef.current;
+      if (tr) { tr.style.animation = 'none'; void tr.offsetWidth; tr.style.animation = (d > 0 ? 'artInRight' : 'artInLeft') + ' .34s cubic-bezier(.22,1,.36,1)'; }
+    });
+  };
+
+  wireSheet(handle, sheet, isOpen, close) {
+    if (!handle || !sheet) return;
+    let startY = 0, cur = 0, dragging = false;
+    const down = (y) => { if (!isOpen()) return; dragging = true; startY = y; sheet.style.transition = 'none'; };
+    const move = (y) => { if (!dragging) return; cur = Math.max(0, y - startY); sheet.style.transform = 'translateY(' + cur + 'px)'; };
+    const up = () => { if (!dragging) return; dragging = false; sheet.style.transition = ''; if (cur > 90) close(); sheet.style.transform = ''; cur = 0; };
+    handle.addEventListener('touchstart', e => down(e.touches[0].clientY), {passive:true});
+    handle.addEventListener('touchmove', e => move(e.touches[0].clientY), {passive:true});
+    handle.addEventListener('touchend', up);
+    handle.addEventListener('mousedown', e => { down(e.clientY); const mm = ev => move(ev.clientY); const mu = () => { up(); window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); }; window.addEventListener('mousemove', mm); window.addEventListener('mouseup', mu); });
+  }
+
+  componentWillUnmount() { clearInterval(this._t); }
+
+  setProfile = (p) => this.setState({ activeProfile: p });
+  toggleSave = (id) => this.setState(s => ({ saved: { ...s.saved, [id]: !s.saved[id] } }));
+  toggleExpand = (id) => this.setState(s => ({ expanded: { ...s.expanded, [id]: !s.expanded[id] } }));
+  toggleLike = (id) => this.setState(s => { const c = s.likes[id]; return { likes: { ...s.likes, [id]: { l: !c.l, c: c.c + (c.l ? -1 : 1) } } }; });
+  openSearch = () => this.setState({ searchOpen: true });
+  closeSearch = () => this.setState({ searchOpen: false });
+  openArticleAt = (i) => this.setState({ articleIndex: i || 0, articleOpen: true });
+  closeArticle = () => this.setState({ articleOpen: false });
+  onQuery = (e) => this.setState({ query: e.target.value });
+  onKey = (e) => { if (e.key === 'Enter') this.run(this.state.query); };
+  submit = () => this.run(this.state.query);
+  run = (q) => {
+    q = (q || '').trim();
+    if (!q || this.state.answering) return;
+    this.setState({ query: q, searchOpen: true, answering: true, answered: false, typed: '' });
+    const full = this.answerText;
+    let i = 0;
+    clearInterval(this._t);
+    this._t = setInterval(() => {
+      i += 2;
+      this.setState({ typed: full.slice(0, i) });
+      if (i >= full.length) { clearInterval(this._t); this.setState({ answering: false, answered: true }); }
+    }, 16);
+  };
+
+  renderVals() {
+    const s = this.state;
+    const lockedView = s.articleOpen && !!this.articles[s.articleIndex].locked;
+    const mkNews = (n) => {
+      const expanded = !!s.expanded[n.id];
+      const saved = !!s.saved[n.id];
+      return {
+        id: n.id, tag: n.tag, date: n.date, title: n.title, author: n.author, read: n.read,
+        cover: n.cover, teaser: n.teaser, body: n.body,
+        isCompact: n.variant === 'compact', isList: n.variant === 'list',
+        locked: !!n.locked, opensModal: !n.locked && !!n.modal, expandable: !n.locked && !n.modal,
+        onModal: () => this.openArticleAt(n.articleIdx),
+        onPrimary: (n.modal) ? (() => this.openArticleAt(n.articleIdx)) : (() => this.toggleExpand(n.id)),
+        chips: (n.variant === 'image' ? this.chipSet : []).map(c => ({ ...c, neg: !c.pos })),
+        rows: (n.rows || []).map(r => ({ ...r, down: !r.up })),
+        expanded, collapsed: !expanded,
+        saved, notSaved: !saved,
+        onSave: () => this.toggleSave(n.id),
+        onOpen: () => this.toggleExpand(n.id),
+      };
+    };
+    const posts = this.profitData.map(p => {
+      const lk = s.likes[p.id];
+      return { id: p.id, nick: p.nick, avatar: p.avatar, time: p.time, comments: p.comments,
+        text: p.text, tag: p.tag, hasTag: !!p.tag,
+        liked: lk.l, notLiked: !lk.l, likeCount: lk.c, countColor: lk.l ? '#F2385A' : '#9A9DA6',
+        onLike: () => this.toggleLike(p.id) };
+    });
+    const profiles = this.profileList.map(p => {
+      const active = p === s.activeProfile;
+      return { name: p, onTap: () => this.setProfile(p),
+        btnStyle: active
+          ? 'background:#fff;color:#16264C;box-shadow:0 2px 8px rgba(0,0,0,.18);'
+          : 'background:rgba(255,255,255,.14);color:#fff;' };
+    });
+
+    return {
+      profiles,
+      newsTop: this.newsData.slice(0, 2).map(mkNews),
+      newsBottom: this.newsData.slice(2).map(mkNews),
+      posts,
+      suggestions: this.suggestionList.map(t => ({ text: t, onTap: () => this.run(t) })),
+      sources: this.sources,
+      query: s.query, typed: s.typed, answered: s.answered, answering: s.answering,
+      showAnswer: s.answering || s.answered,
+      perks: this.perkList,
+      article: this.articles[s.articleIndex],
+      articleTitle: this.articles[s.articleIndex].title,
+      articleScrollRef: this.articleScrollRef, articleTrackRef: this.articleTrackRef,
+      articleChips: this.chipSet.map(c => ({ ...c, neg: !c.pos })),
+      closeArticle: this.closeArticle,
+      articleBackdropOpacity: s.articleOpen ? 1 : 0,
+      articleBackdropPointer: s.articleOpen ? 'auto' : 'none',
+      articleTransform: s.articleOpen ? 'translateY(0)' : 'translateY(105%)',
+      articleRef: this.articleRef, articleHandleRef: this.articleHandleRef,
+      closePaywall: this.closeArticle,
+      paywallRef: this.paywallRef, paywallHandleRef: this.paywallHandleRef, paywallDimRef: this.paywallDimRef,
+      paywallTransform: lockedView ? 'translateY(0)' : 'translateY(105%)',
+      paywallDimOpacity: lockedView ? 1 : 0,
+      paywallPointer: lockedView ? 'auto' : 'none',
+      openSearch: this.openSearch, closeSearch: this.closeSearch,
+      onQuery: this.onQuery, onKey: this.onKey, submit: this.submit,
+      sheetRef: this.sheetRef, handleRef: this.handleRef,
+      backdropOpacity: s.searchOpen ? 1 : 0,
+      backdropPointer: s.searchOpen ? 'auto' : 'none',
+      sheetTransform: s.searchOpen ? 'translateY(0)' : 'translateY(105%)',
+    };
+  }
+}
+</script>
+</body>
+</html>
