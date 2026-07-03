@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <title>БКС Экспресс — персональная лента</title>
 <script src="./support.js"></script>
@@ -11,7 +11,7 @@
 <x-dc>
 <helmet>
 <style>
-  html,body{margin:0;padding:0;}
+  html,body{margin:0;padding:0;background:#F3F3F5;}
   *{-webkit-tap-highlight-color:transparent;box-sizing:border-box;}
   [data-noscroll]::-webkit-scrollbar{display:none;}
   @keyframes shimmer{0%{background-position:-320px 0;}100%{background-position:320px 0;}}
@@ -19,10 +19,13 @@
   @keyframes artInRight{from{transform:translateX(46px);opacity:.2;}to{transform:translateX(0);opacity:1;}}
   @keyframes artInLeft{from{transform:translateX(-46px);opacity:.2;}to{transform:translateX(0);opacity:1;}}
   @media (max-width:520px), (hover:none) and (pointer:coarse){
-    .dc-stage{padding:0!important;background:#F3F3F5!important;}
-    .dc-phone{width:100%!important;height:100vh!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important;}
+    html,body{background:#F3F3F5!important;overflow:hidden!important;}
+    .dc-stage{height:100svh!important;min-height:100svh!important;padding:0!important;align-items:stretch!important;justify-content:flex-start!important;background:#F3F3F5!important;}
+    .dc-phone{width:100%!important;height:100svh!important;min-height:100svh!important;border-radius:0!important;box-shadow:none!important;}
+    .dc-scroll{background:#F3F3F5!important;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;}
     .dc-statusbar{display:none!important;}
-    .dc-header{top:0!important;}
+    .dc-header{top:0!important;padding-top:calc(6px + env(safe-area-inset-top,0px))!important;}
+    .dc-bottom-spacer{height:calc(12px + env(safe-area-inset-bottom,0px))!important;}
   }
   @media (min-width:521px) and (hover:hover) and (pointer:fine){
     .dc-header{top:50px!important;}
@@ -34,7 +37,7 @@
 
   <div class="dc-phone" style="position:relative;width:390px;height:844px;background:#F3F3F5;border-radius:46px;overflow:hidden;box-shadow:0 40px 90px rgba(20,25,45,.35),0 0 0 12px #0b0d14,0 0 0 13px #23252e;">
 
-    <div data-noscroll style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;">
+    <div class="dc-scroll" data-noscroll style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;">
 
       <!-- status bar -->
       <div class="dc-statusbar" style="position:sticky;top:0;z-index:40;height:50px;background:#fff;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px;">
@@ -266,7 +269,7 @@
         </div>
       </div>
 
-      <div style="height:40px;"></div>
+      <div class="dc-bottom-spacer" style="height:40px;"></div>
     </div>
 
     <!-- SEARCH BOTTOM SHEET -->
